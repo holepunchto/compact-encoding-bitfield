@@ -80,15 +80,33 @@ module.exports = function bitfield (length, byteLength = Math.ceil(length / 8)) 
     }
 
     static preencode (state) {
-      state.end += byteLength
+      if (length < 8) state.end++
+      else if (length <= 16) state.end += 3
+      else if (length <= 32) state.end += 5
+      else state.end += 9
     }
 
     static encode (state, b) {
+      if (length < 8) ;
+      else if (length <= 16) state.buffer[state.start++] = 0xfd
+      else if (length <= 32) state.buffer[state.start++] = 0xfe
+      else state.buffer[state.start++] = 0xff
+
       encoding.encode(state, coerce(b))
     }
 
     static decode (state) {
-      return wrap(encoding.decode(state))
+      const a = state.buffer[state.start]
+
+      let b
+      if (a <= 0xfc) b = 1
+      else if (a === 0xfd) b = 2
+      else if (a === 0xfe) b = 4
+      else b = 8
+
+      if (b > 1) state.start++ // Skip the length byte
+
+      return wrap(state.buffer.subarray(state.start, (state.start += b)))
     }
   }
 
