@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/compact-encoding/compact-encoding-bitfield#readme",
   "dependencies": {
-    "b4a": "^1.5.0",
     "compact-encoding": "^2.4.1"
   },
   "devDependencies": {

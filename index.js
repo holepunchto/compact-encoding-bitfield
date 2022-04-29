@@ -1,4 +1,3 @@
-const b4a = require('b4a')
 const c = require('compact-encoding')
 
 module.exports = function bitfield (length) {
