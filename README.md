@@ -1,6 +1,6 @@
 # compact-encoding-bitfield
 
-[compact-encoding](https://github.com/compact-encoding/compact-encoding) codec for bitfields.
+[compact-encoding](https://github.com/compact-encoding/compact-encoding) codec for bitfields. Uses a variable length encoding that is ABI compatible with `cenc.uint`.
 
 ```sh
 npm install compact-encoding-bitfield
