@@ -8,6 +8,6 @@ test('number', async (t) => {
 
   t.alike(c.encode(enc, 0b1), Buffer.from([0b1]))
   t.alike(c.encode(enc, 0b11), Buffer.from([0b11]))
+  t.alike(c.encode(enc, 0b111), Buffer.from([0b111]))
   t.alike(c.encode(enc, 0b1111), Buffer.from([0b1111]))
-  t.alike(c.encode(enc, 0b11111), Buffer.from([0b1111]))
 })
