@@ -9,7 +9,7 @@ module.exports = function bitfield (length, byteLength = Math.ceil(length / 8)) 
       super(byteLength)
     }
 
-    size () {
+    get size () {
       return length
     }
 
