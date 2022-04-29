@@ -3,7 +3,7 @@ const c = require('compact-encoding')
 
 module.exports = function bitfield (length) {
   let byteLength
-  if (length < 7) byteLength = 1
+  if (length < 8) byteLength = 1
   else if (length <= 16) byteLength = 2
   else if (length <= 32) byteLength = 4
   else byteLength = 8
