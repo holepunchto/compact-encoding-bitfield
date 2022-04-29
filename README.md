@@ -76,6 +76,19 @@ Invoke a callback for each entry of the bitfield.
 
 Iterate over the entries of the bitfield
 
+## ABI
+
+The bitfield is stored as a possibly length-prefixed sequence of bytes. For each byte, the least significant digit denotes the first bit and the most significant digit denotes the last bit. For example, bit `0` will be the least significant digit of the first byte and bit `15` will be the most significant digit of the second byte.
+
+Depending on `length`, the bitfield is stored using a variable number of possibly length-prefixed bytes:
+
+1. `length < 8`: 1 byte with no prefix.
+2. `length <= 16`: 2 bytes with a `0xfd` prefix.
+3. `length <= 32`: 4 bytes with a `0xfe` prefix.
+4. `length <= 64`: 8 bytes with a `0xff` prefix.
+
+`length` must not exceed 64 bits.
+
 ## License
 
 ISC
