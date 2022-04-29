@@ -80,6 +80,15 @@ module.exports = function bitfield (length) {
       for (let i = 0; i < length; i++) yield [i, this.has(i)]
     }
 
+    [Symbol.toPrimitive] () {
+      switch (byteLength) {
+        case 1: return c.decode(c.uint8, this)
+        case 2: return c.decode(c.uint16, this)
+        case 4: return c.decode(c.uint32, this)
+        case 8: return c.decode(c.uint64, this)
+      }
+    }
+
     static create () {
       return new this()
     }
