@@ -12,7 +12,7 @@ npm install compact-encoding-bitfield
 const cenc = require('compact-encoding')
 const bitfield = require('compact-encoding-bitfield')
 
-const buffer = cenc.encode(0b1011, bitfield(4))
+const buffer = cenc.encode(bitfield(4), 0b1011)
 
 cenc.decode(bitfield(4), buffer)
 // <Bitfield 0b1011>
