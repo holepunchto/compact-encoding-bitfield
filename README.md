@@ -20,11 +20,9 @@ cenc.decode(bitfield(4), buffer)
 
 ## API
 
-#### `const Bitfield = bitfield(length[, byteLength])`
+#### `const Bitfield = bitfield(length)`
 
-Create a codec for a bitfield of `length` bits. An optional `byteLength` can be specified to control the number of bytes in the bitfield. By default, `ceil(length / 8)` is used.
-
-The codec will coerce numbers up to 4 bytes to buffers. Bitfields are decoded as `Bitfield` values described below.
+Create a codec for a bitfield of `length` bits.
 
 #### `const b = new Bitfield()`
 
