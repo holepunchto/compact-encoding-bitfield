@@ -125,17 +125,11 @@ module.exports = function bitfield (length) {
 
   function coerce (value) {
     if (typeof value === 'number') {
-      if (length > 32) {
-        throw new Error(`Cannot coerce number to bitfield of length ${length}`)
-      }
-
-      value = value & (1 << length) - 1 // Cut off excess bits
-
       switch (byteLength) {
-        case 1: return b4a.from([value])
-        case 2: return b4a.from([value >> 8, value & 0xff])
-        case 3: return b4a.from([value >> 16, (value >> 8) & 0xff, value & 0xff])
-        case 4: return b4a.from([value >> 24, (value >> 16) & 0xff, (value >> 8) & 0xff, value & 0xff])
+        case 1: return c.encode(c.uint8, value)
+        case 2: return c.encode(c.uint16, value)
+        case 4: return c.encode(c.uint32, value)
+        case 8: return c.encode(c.uint64, value)
       }
     }
 
