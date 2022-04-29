@@ -78,7 +78,7 @@ Iterate over the entries of the bitfield
 
 ## ABI
 
-The bitfield is stored as a possibly length-prefixed sequence of bytes. For each byte, the least significant digit denotes the first bit and the most significant digit denotes the last bit. For example, bit `0` will be the least significant digit of the first byte and bit `15` will be the most significant digit of the second byte.
+The bitfield is stored as a possibly length-prefixed sequence of bytes. For each byte, the least significant bit denotes the first bit and the most significant bit denotes the last bit. For example, bit `0` will be the least significant bit of the first byte and bit `15` will be the most significant bit of the second byte.
 
 Depending on `length`, the bitfield is stored using a variable number of possibly length-prefixed bytes:
 
