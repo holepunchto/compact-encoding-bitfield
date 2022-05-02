@@ -15,20 +15,20 @@ module.exports = function bitfield (length) {
 
       if (byteLength === 1) ;
       else if (byteLength === 2) c.uint16.preencode(state)
-      else if (byteLength === 3) c.uint32.preencode(state)
+      else if (byteLength === 4) c.uint32.preencode(state)
       else c.uint64.preencode(state)
     },
 
     encode (state, b) {
       if (byteLength === 1) ;
       else if (byteLength === 2) c.uint8.encode(state, 0xfd)
-      else if (byteLength === 3) c.uint8.encode(state, 0xfe)
+      else if (byteLength === 4) c.uint8.encode(state, 0xfe)
       else c.uint8.encode(state, 0xff)
 
       if (typeof b === 'number') {
         if (byteLength === 1) c.uint8.encode(state, b)
         else if (byteLength === 2) c.uint16.encode(state, b)
-        else if (byteLength === 3) c.uint32.encode(state, b)
+        else if (byteLength === 4) c.uint32.encode(state, b)
         else c.uint64.encode(state, b)
       } else {
         state.buffer.set(b, state.start)
