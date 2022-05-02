@@ -12,17 +12,12 @@ npm install compact-encoding-bitfield
 const cenc = require('compact-encoding')
 const bitfield = require('compact-encoding-bitfield')
 
-const buffer = cenc.encode(bitfield(4), 0b1011)
+const buffer = cenc.encode(bitfield(8), 0b1110_1011)
+// <Buffer fd eb 00>
 
-cenc.decode(bitfield(4), buffer)
-// <Bitfield 0b1011>
+cenc.decode(bitfield(8), buffer)
+// <Buffer eb>
 ```
-
-## API
-
-#### `const enc = bitfield(length)`
-
-Create a codec for a bitfield of `length` bits.
 
 ## ABI
 
