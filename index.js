@@ -13,25 +13,34 @@ module.exports = function bitfield (length) {
     preencode (state) {
       state.end++ // Length byte
 
-      if (length < 8) ;
-      else if (length <= 16) c.uint16.preencode(state)
-      else if (length <= 32) c.uint32.preencode(state)
+      if (byteLength === 1) ;
+      else if (byteLength === 2) c.uint16.preencode(state)
+      else if (byteLength === 3) c.uint32.preencode(state)
       else c.uint64.preencode(state)
     },
 
     encode (state, b) {
-      if (length < 8) ;
-      else if (length <= 16) c.uint8.encode(state, 0xfd)
-      else if (length <= 32) c.uint8.encode(state, 0xfe)
+      if (byteLength === 1) ;
+      else if (byteLength === 2) c.uint8.encode(state, 0xfd)
+      else if (byteLength === 3) c.uint8.encode(state, 0xfe)
       else c.uint8.encode(state, 0xff)
 
       if (typeof b === 'number') {
-        if (length < 8) c.uint8.encode(state, b)
-        else if (length <= 16) c.uint16.encode(state, b)
-        else if (length <= 32) c.uint32.encode(state, b)
+        if (byteLength === 1) c.uint8.encode(state, b)
+        else if (byteLength === 2) c.uint16.encode(state, b)
+        else if (byteLength === 3) c.uint32.encode(state, b)
         else c.uint64.encode(state, b)
       } else {
         state.buffer.set(b, state.start)
+
+        if (b.byteLength < byteLength) {
+          state.buffer.fill(
+            0,
+            state.start + b.byteLength,
+            state.start + byteLength
+          )
+        }
+
         state.start += byteLength
       }
     },
