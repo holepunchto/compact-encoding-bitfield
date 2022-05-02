@@ -21,6 +21,8 @@ for (let n = 1; n <= 53; n++) {
       util.inspect(b)
     )
 
+    t.snapshot(c.encode(bitfield(n), b), 'ABI')
+
     t.test('uint compatibility', async (t) => {
       t.alike(
         c.encode(bitfield(n), i),
