@@ -11,7 +11,7 @@ module.exports = function bitfield (length) {
 
   return {
     preencode (state) {
-      state.end++ // Length byte
+      state.end++ // Length byte, used for data when byteLength === 1
 
       if (byteLength === 1) ;
       else if (byteLength === 2) c.uint16.preencode(state)
@@ -34,6 +34,7 @@ module.exports = function bitfield (length) {
         state.buffer.set(b, state.start)
 
         if (b.byteLength < byteLength) {
+          // Zero-fill the rest of the byte length.
           state.buffer.fill(
             0,
             state.start + b.byteLength,
