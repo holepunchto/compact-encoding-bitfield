@@ -23,7 +23,7 @@ test('uint compat', async (t) => {
 
   t.is(
     c.decode(c.uint,
-      // bitfield, uint: fd fe 00
+      // bitfield, uint: fd 33 ff
       c.encode(bitfield(16), 0b1111_1111_0011_0011)
     ),
     0b1111_1111_0011_0011
