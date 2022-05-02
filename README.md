@@ -19,11 +19,13 @@ cenc.decode(bitfield(8), buffer)
 // <Buffer eb>
 ```
 
+Bitfields are represented as buffers. For each byte, the least significant bit denotes the first bit and the most significant bit denotes the last bit. For example, bit `0` will be the least significant bit of the first byte and bit `15` will be the most significant bit of the second byte.
+
+The encoding will convert numbers to buffers. Buffers may also be passed and will be returned on decode.
+
 ## ABI
 
-The bitfield is stored as a possibly length-prefixed sequence of bytes. For each byte, the least significant bit denotes the first bit and the most significant bit denotes the last bit. For example, bit `0` will be the least significant bit of the first byte and bit `15` will be the most significant bit of the second byte.
-
-Depending on `length`, the bitfield is stored using a variable number of possibly length-prefixed bytes:
+Depending on `length`, the bitfield is stored using a variable number of bytes:
 
 1. `length < 8`: 1 byte with no prefix.
 2. `length <= 16`: 2 bytes with a `0xfd` prefix.
