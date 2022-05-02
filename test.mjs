@@ -1,31 +1,39 @@
+import util from 'util'
 import test from 'brittle'
 import c from 'compact-encoding'
 
 import bitfield from './index.js'
 
-test('uint compat', async (t) => {
-  t.is(
-    c.decode(c.uint,
-      // bitfield: fd fc 00
-      // uint: fc
-      c.encode(bitfield(8), 0b1111_1100)
-    ),
-    0b1111_1100
-  )
+for (let n = 1; n <= 53; n++) {
+  test(`bitfield(${n})`, async (t) => {
+    const i = 2 ** n - 1
+    const b = toBuffer(i, n)
 
-  t.is(
-    c.decode(c.uint,
-      // bitfield, uint: fd fe 00
-      c.encode(bitfield(8), 0b1111_1110)
-    ),
-    0b1111_1110
-  )
+    t.alike(
+      c.decode(bitfield(n), c.encode(bitfield(n), i)),
+      b,
+      i.toString(2)
+    )
 
-  t.is(
-    c.decode(c.uint,
-      // bitfield, uint: fd 33 ff
-      c.encode(bitfield(16), 0b1111_1111_0011_0011)
-    ),
-    0b1111_1111_0011_0011
-  )
-})
+    t.alike(
+      c.decode(bitfield(n), c.encode(bitfield(n), b)),
+      b,
+      util.inspect(b)
+    )
+
+    t.test('uint compatibility', async (t) => {
+      t.alike(
+        c.encode(bitfield(n), i),
+        c.encode(c.uint, i),
+        'ABI'
+      )
+    })
+  })
+}
+
+function toBuffer (b, length) {
+  if (length <= 8) return c.encode(c.uint8, b)
+  if (length <= 16) return c.encode(c.uint16, b)
+  if (length <= 32) return c.encode(c.uint32, b)
+  return c.encode(c.uint64, b)
+}
