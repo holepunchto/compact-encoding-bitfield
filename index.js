@@ -31,17 +31,19 @@ module.exports = function bitfield (length) {
     },
 
     decode (state) {
-      const a = state.buffer[state.start]
+      const byte = state.buffer[state.start]
 
-      let b
-      if (a <= 0xfc) b = 1
-      else if (a === 0xfd) b = 2
-      else if (a === 0xfe) b = 4
-      else b = 8
+      let byteLength
+      if (byte <= 0xfc) byteLength = 1
+      else if (byte === 0xfd) byteLength = 2
+      else if (byte === 0xfe) byteLength = 4
+      else byteLength = 8
 
-      if (b > 1) state.start++ // Skip the length byte
+      if (byteLength > 1) state.start++ // Skip the length byte
 
-      return state.buffer.subarray(state.start, (state.start += b))
+      const b = state.buffer.subarray(state.start, (state.start += byteLength))
+
+      return length <= 8 ? b.subarray(0, 1) : b
     }
   }
 
