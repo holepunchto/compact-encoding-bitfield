@@ -6,7 +6,7 @@ import bitfield from './index.js'
 
 for (let n = 1; n <= 53; n++) {
   test(`bitfield(${n})`, async (t) => {
-    const i = 2 ** n - 1
+    const i = 2 ** (n - 1) + (n === 1 ? 0 : 1) // Set first and last bit
     const b = toBuffer(i, n)
 
     t.alike(
@@ -24,10 +24,16 @@ for (let n = 1; n <= 53; n++) {
     t.snapshot(c.encode(bitfield(n), b), 'ABI')
 
     t.test('uint compatibility', async (t) => {
+      t.is(
+        c.decode(c.uint, c.encode(bitfield(n), i)),
+        i,
+        'encode'
+      )
+
       t.alike(
-        c.encode(bitfield(n), i),
-        c.encode(c.uint, i),
-        'ABI'
+        c.decode(bitfield(n), c.encode(c.uint, i)),
+        b,
+        'decode'
       )
     })
   })
