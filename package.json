@@ -22,5 +22,10 @@
   "devDependencies": {
     "brittle": "^1.3.5",
     "standard": "^16.0.3"
+  },
+  "standard": {
+    "ignore": [
+      "__snapshots__/**"
+    ]
   }
 }
