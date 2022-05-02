@@ -49,7 +49,7 @@ module.exports = function bitfield (length) {
 
   function coerce (value) {
     if (typeof value === 'number') {
-      if (length <= 8) return c.encode(c.uint8, value)
+      if (length < 8) return c.encode(c.uint8, value)
       if (length <= 16) return c.encode(c.uint16, value)
       if (length <= 32) return c.encode(c.uint32, value)
       return c.encode(c.uint64, value)
