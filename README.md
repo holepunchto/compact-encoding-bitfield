@@ -36,4 +36,4 @@ Depending on `length`, the bitfield is stored using a variable number of bytes:
 
 ## License
 
-ISC
+Apache 2.0
