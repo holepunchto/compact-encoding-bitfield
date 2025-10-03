@@ -1,7 +1,8 @@
 const c = require('compact-encoding')
 
-module.exports = function bitfield (length) {
-  if (length > 64) throw new RangeError('Bitfield cannot be larger than 64 bits')
+module.exports = function bitfield(length) {
+  if (length > 64)
+    throw new RangeError('Bitfield cannot be larger than 64 bits')
 
   let byteLength
   if (length < 8) byteLength = 1
@@ -10,17 +11,17 @@ module.exports = function bitfield (length) {
   else byteLength = 8
 
   return {
-    preencode (state) {
+    preencode(state) {
       state.end++ // Length byte, used for data when byteLength === 1
 
-      if (byteLength === 1) ;
+      if (byteLength === 1);
       else if (byteLength === 2) c.uint16.preencode(state)
       else if (byteLength === 4) c.uint32.preencode(state)
       else c.uint64.preencode(state)
     },
 
-    encode (state, b) {
-      if (byteLength === 1) ;
+    encode(state, b) {
+      if (byteLength === 1);
       else if (byteLength === 2) c.uint8.encode(state, 0xfd)
       else if (byteLength === 4) c.uint8.encode(state, 0xfe)
       else c.uint8.encode(state, 0xff)
@@ -46,7 +47,7 @@ module.exports = function bitfield (length) {
       }
     },
 
-    decode (state) {
+    decode(state) {
       const byte = state.buffer[state.start]
 
       let byteLength
