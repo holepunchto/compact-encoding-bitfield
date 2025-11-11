@@ -17,8 +17,8 @@
     "type": "git",
     "url": "git+https://github.com/compact-encoding/compact-encoding-bitfield.git"
   },
-  "author": "Kasper Isager Dalsgarð <kasper@funktionel.co>",
-  "license": "ISC",
+  "author": "Holepunch",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/compact-encoding/compact-encoding-bitfield/issues"
   },
