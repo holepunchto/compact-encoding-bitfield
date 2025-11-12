@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: lts/*
       - run: npm install
-      - run: npm test:node
+      - run: npm run test:node
 
   test-bare:
     strategy:
@@ -55,4 +55,4 @@ jobs:
           node-version: lts/*
       - run: npm install -g bare-runtime
       - run: npm install
-      - run: npm test:bare
+      - run: npm run test:bare
