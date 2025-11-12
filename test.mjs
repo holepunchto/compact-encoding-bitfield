@@ -1,3 +1,4 @@
+import util from 'util'
 import test from 'brittle'
 import c from 'compact-encoding'
 
@@ -10,7 +11,7 @@ for (let n = 1; n <= 53; n++) {
 
     t.alike(c.decode(bitfield(n), c.encode(bitfield(n), i)), b, i.toString(2))
 
-    t.alike(c.decode(bitfield(n), c.encode(bitfield(n), b)), b)
+    t.alike(c.decode(bitfield(n), c.encode(bitfield(n), b)), b, util.inspect(b))
 
     t.snapshot(c.encode(bitfield(n), b), 'ABI')
 
