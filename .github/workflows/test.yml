@@ -15,7 +15,8 @@ jobs:
           node-version: lts/*
       - run: npm install
       - run: npm run lint
-  test:
+
+  test-node:
     strategy:
       matrix:
         include:
@@ -26,7 +27,27 @@ jobs:
           - os: windows-latest
             platform: win32
     runs-on: ${{ matrix.os }}
-    name: Build / ${{ matrix.platform }}
+    name: Node / ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        with:
+          node-version: lts/*
+      - run: npm install
+      - run: npm test:node
+
+  test-bare:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+          - os: macos-latest
+            platform: darwin
+          - os: windows-latest
+            platform: win32
+    runs-on: ${{ matrix.os }}
+    name: Bare / ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
@@ -34,4 +55,4 @@ jobs:
           node-version: lts/*
       - run: npm install -g bare-runtime
       - run: npm install
-      - run: npm test
+      - run: npm test:bare
