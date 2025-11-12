@@ -15,7 +15,7 @@ jobs:
           node-version: lts/*
       - run: npm install
       - run: npm run lint
-  test-node:
+  test:
     strategy:
       matrix:
         include:
@@ -26,7 +26,7 @@ jobs:
           - os: windows-latest
             platform: win32
     runs-on: ${{ matrix.os }}
-    name: Node / ${{ matrix.platform }}
+    name: Build / ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
