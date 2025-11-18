@@ -1,8 +1,9 @@
 const c = require('compact-encoding')
 
 module.exports = function bitfield(length) {
-  if (length > 64)
+  if (length > 64) {
     throw new RangeError('Bitfield cannot be larger than 64 bits')
+  }
 
   let byteLength
   if (length < 8) byteLength = 1
