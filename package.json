@@ -30,7 +30,7 @@
     }
   },
   "dependencies": {
-    "compact-encoding": "^2.4.1"
+    "compact-encoding": "^3.0.0"
   },
   "devDependencies": {
     "bare-utils": "^1.5.1",
