@@ -1,6 +1,6 @@
 {
   "name": "compact-encoding-bitfield",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Compact codec for bitfields",
   "main": "index.js",
   "files": [
